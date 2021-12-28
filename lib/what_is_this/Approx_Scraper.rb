@@ -1,4 +1,4 @@
-class CLI::Approx_Scraper
+class CLI::Approx_Scraper < Scraper_Tools
     attr_accessor :name, :markup, :downloads
     @@page = 1
     @@current_query = ""
@@ -42,18 +42,7 @@ class CLI::Approx_Scraper
         
         
     end
-    def self.page(doc)
-        doc.css('.gems__meter').text.match(/[0-9]{3}/).to_s.to_i
-        
-    end
-    def self.check_pagination(doc)
-        
-        doc.css(".pagination").text
-        
-    end
-    def self.retry
-        puts "Unable to complete request, please try again: "
-    end
+    
     def self.approx_downloads(doc)
         doc.css('.gems__gem__downloads__count').text.gsub(/[[:space:]]/, ' ').gsub(/Downloads/, '').split()
     end
@@ -76,8 +65,8 @@ class CLI::Approx_Scraper
             search_results_found = self.page(@doc)
             if (self.check_pagination(@doc) != "")
                 max_pages = (search_results_found / 30).ceil
-                @@page = CLI::AdvancedSearch.navigate(@@page, max_pages)
                 puts "Displaying page #{@@page} out of #{max_pages}"
+                @@page = CLI::AdvancedSearch.navigate(@@page, max_pages)
 
                 self.get_approximate_data(@@current_query, @@page)
 
