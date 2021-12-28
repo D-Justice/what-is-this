@@ -75,8 +75,10 @@ class CLI::Approx_Scraper
             end
             search_results_found = self.page(@doc)
             if (self.check_pagination(@doc) != "")
-                @@page = CLI::AdvancedSearch.navigate(@@page, (search_results_found / 30).ceil)
+                max_pages = (search_results_found / 30).ceil
+                @@page = CLI::AdvancedSearch.navigate(@@page, max_pages)
                 self.get_approximate_data(@@current_query, @@page)
+                puts "Displaying page #{@@page} out of #{max_pages}"
 
             end
             CLI.restart
