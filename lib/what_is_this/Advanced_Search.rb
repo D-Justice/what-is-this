@@ -128,6 +128,7 @@ class CLI::AdvancedSearch
 
     end
     def self.forward(page)
+        puts "The page is #{page}"
         page += 1 
         
     end
