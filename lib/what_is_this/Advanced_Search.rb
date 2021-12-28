@@ -116,7 +116,7 @@ class CLI::AdvancedSearch
         input = gets.chomp.to_str.downcase
         case input
         when "forward", "f"
-            self.forward(page)
+            self.forward(page, max_pages)
         when "back", "b"
             self.back(page)
         when "home"
@@ -127,7 +127,7 @@ class CLI::AdvancedSearch
         end
 
     end
-    def self.forward(page)
+    def self.forward(page, max_pages)
         page += 1 unless page >= max_pages
         page
         
