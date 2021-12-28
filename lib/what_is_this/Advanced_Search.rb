@@ -133,7 +133,7 @@ class CLI::AdvancedSearch
         
     end
     def self.back(page)
-        page -=1 unless page <= 0
+        page -=1 unless page <= 1
         page
     end
 
