@@ -43,7 +43,7 @@ class CLI::Approx_Scraper
         
     end
     def self.page(doc)
-        doc.css('.gems__meter').text.match(/[0-9]{3}/).to_str
+        doc.css('.gems__meter').text.match(/[0-9]{3}/).to_s
         
     end
     def self.check_pagination(doc)
