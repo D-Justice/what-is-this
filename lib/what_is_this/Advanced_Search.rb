@@ -112,7 +112,6 @@ class CLI::AdvancedSearch
         
     end
     def self.navigate(page, max_pages)
-        puts "Max pages #{max_pages}"
         puts @@spacing + @@message_spacing + "To navigate type 'forward'(f) or 'back'(b), or 'home' to go back"
         input = gets.chomp.to_str.downcase
         case input
