@@ -43,8 +43,7 @@ class CLI::Approx_Scraper
         
     end
     def self.page(doc)
-        doc.css('.gems__meter').text
-        puts doc.css('.gems__meter').text.match /[0-9]{3}/
+        doc.css('.gems__meter').text.match /[0-9]{3}/
         
     end
     def self.check_pagination(doc)
@@ -74,7 +73,7 @@ class CLI::Approx_Scraper
                 puts "---------------------------------"
             end
             
-            puts self.page(@doc)
+            search_results_found = self.page(@doc)
             if (self.check_pagination(@doc) != "")
                 @@page = CLI::AdvancedSearch.navigate(@@page, (search_results_found / 30).ceil)
                 self.get_approximate_data(@@current_query, @@page)
