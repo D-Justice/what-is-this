@@ -1,8 +1,7 @@
-class Scraper_Tools
+class CLI::Scraper_Tools
 
     def self.page(doc)
         doc.css('.gems__meter').text.match(/[0-9]{3}/).to_s.to_i
-        
     end
     def self.check_pagination(doc)
         
