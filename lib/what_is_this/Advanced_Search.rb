@@ -128,12 +128,13 @@ class CLI::AdvancedSearch
 
     end
     def self.forward(page)
-        puts "The page is #{page}"
         page += 1 
+        page
         
     end
     def self.back(page)
-        page -=1 unless page < 1
+        page -=1 unless page =< 0
+        page
     end
 
 end
