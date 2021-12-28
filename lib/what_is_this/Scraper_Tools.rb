@@ -1,5 +1,7 @@
 class CLI::Scraper_Tools
-
+    @@spacing = "\n\n\n"
+    @@message_spacing = "         "
+    
     def self.page(doc)
         doc.css('.gems__meter').text.match(/[0-9]{3}/).to_s.to_i
     end
