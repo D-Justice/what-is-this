@@ -73,7 +73,7 @@ class CLI::Approx_Scraper
                 puts ''
                 puts "---------------------------------"
             end
-            search_results_found = self.page(@doc)[0]
+            search_results_found = self.page(@doc)
             if (self.check_pagination(@doc) != "")
                 @@page = CLI::AdvancedSearch.navigate(@@page, (search_results_found / 30).ceil)
                 self.get_approximate_data(@@current_query, @@page)
