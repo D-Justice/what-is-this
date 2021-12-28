@@ -1,4 +1,4 @@
-class CLI::Approx_Scraper < Scraper_Tools
+class CLI::Approx_Scraper
     attr_accessor :name, :markup, :downloads
     @@page = 1
     @@current_query = ""
@@ -62,8 +62,8 @@ class CLI::Approx_Scraper < Scraper_Tools
                 puts ''
                 puts "---------------------------------"
             end
-            search_results_found = self.page(@doc)
-            if (self.check_pagination(@doc) != "")
+            search_results_found = Scraper_Tools.page(@doc)
+            if (Scraper_Tools.check_pagination(@doc) != "")
                 max_pages = (search_results_found / 30).ceil
                 puts "Displaying page #{@@page} out of #{max_pages}"
                 @@page = CLI::AdvancedSearch.navigate(@@page, max_pages)
@@ -78,7 +78,7 @@ class CLI::Approx_Scraper < Scraper_Tools
         end
     rescue => error
         puts error.message
-        self.retry
+        Scraper_Tools.retry
     end
     end
 
