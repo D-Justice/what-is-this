@@ -93,14 +93,16 @@ class CLI::AdvancedSearch
                     puts ''
                     puts "---------------------------------"
                 end
-                search_results_found = @@all.length
-                puts "#{search_results_found} results found"
-                puts Approx_Scraper.page(@doc)
-                if (Approx_Scraper.check_pagination(@doc) != "")
-                    @@page = self.navigate(@@page)
-                    self.advanced_search_scrape(@@current_query, @@page)
-                end
-                self.restart
+                search_results_found = CLI::Scraper_Tools.page(@doc)
+            if (CLI::Scraper_Tools.check_pagination(@doc) != "")
+                max_pages = (search_results_found / 30).ceil
+                puts "Displaying page #{@@page} out of #{max_pages}"
+                @@page = CLI::AdvancedSearch.navigate(@@page, max_pages)
+
+                self.get_approximate_data(@@current_query, @@page)
+
+            end
+                CLI.restart
             else
                 puts "0 search results found"
                 self.restart
@@ -111,30 +113,6 @@ class CLI::AdvancedSearch
         end
         
     end
-    def self.navigate(page, max_pages)
-        puts @@spacing + @@message_spacing + "To navigate type 'forward'(f) or 'back'(b), or 'home' to go back"
-        input = gets.chomp.to_str.downcase
-        case input
-        when "forward", "f"
-            self.forward(page, max_pages)
-        when "back", "b"
-            self.back(page)
-        when "home"
-            CLI.restart
-        else
-            puts "Unrecognised command, try again"
-            self.navigate
-        end
-
-    end
-    def self.forward(page, max_pages)
-        page += 1 unless page >= max_pages
-        page
-        
-    end
-    def self.back(page)
-        page -=1 unless page <= 1
-        page
-    end
+    
 
 end
