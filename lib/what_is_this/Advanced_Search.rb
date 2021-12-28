@@ -14,11 +14,11 @@ class CLI::AdvancedSearch
         @@all << self
     end
     def self.new_from_query
-        Approx_Scraper.approx_names(@doc).each_with_index do |each, index|
+        CLI::Approx_Scraper.approx_names(@doc).each_with_index do |each, index|
             self.new(
-                Approx_Scraper.approx_names(@doc)[index],
-                Approx_Scraper.approx_markups(@doc)[index],
-                Approx_Scraper.approx_downloads(@doc)[index]
+                CLI::Approx_Scraper.approx_names(@doc)[index],
+                CLI::Approx_Scraper.approx_markups(@doc)[index],
+                CLI::Approx_Scraper.approx_downloads(@doc)[index]
             )
         end
         display_data
