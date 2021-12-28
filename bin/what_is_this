@@ -1,4 +1,4 @@
 #!/ usr/bin/env ruby
 require_relative "../lib/what_is_this"
-
+puts "What is this"
 CLI.introduction
