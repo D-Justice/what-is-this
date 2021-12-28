@@ -128,7 +128,7 @@ class CLI::AdvancedSearch
 
     end
     def self.forward(page)
-        page += 1
+        page += 1 
         
     end
     def self.back(page)

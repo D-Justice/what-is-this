@@ -81,10 +81,10 @@ class CLI::Approx_Scraper
                 self.get_approximate_data(@@current_query, @@page)
 
             end
-            self.restart
+            CLI.restart
         else
             puts "0 search results found"
-            self.restart
+            CLI.restart
         end
     rescue => error
         puts error.message
