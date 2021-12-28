@@ -99,7 +99,7 @@ class CLI::AdvancedSearch
                 puts "Displaying page #{@@page} out of #{max_pages}"
                 @@page = CLI::Scraper_Tools.navigate(@@page, max_pages)
 
-                self.get_approximate_data(@@current_query, @@page)
+                self.advanced_search_scrape(@@current_query, @@page)
 
             end
                 CLI.restart

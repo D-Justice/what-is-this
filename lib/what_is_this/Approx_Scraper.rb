@@ -52,7 +52,6 @@ class CLI::Approx_Scraper
             if (@@all.length >= 1)
             @@all.each do |each|
                 puts "---------------------------------"
-                puts "donkey"
                 puts ''
                 puts "About: #{each.name}"
                 puts ''
