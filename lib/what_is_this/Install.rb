@@ -1,4 +1,3 @@
-require_relative '../config/environment.rb'
 class CLI::Install
     
     def self.install(input)
