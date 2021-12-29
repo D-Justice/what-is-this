@@ -18,8 +18,7 @@ class CLI::Scraper_Tools
         puts @@spacing + @@message_spacing + "To navigate type 'forward'(f) or 'back'(b), or 'home' to go back \n
         To install a gem type install then its number (install 12)"
         input = gets.chomp.to_str.downcase
-        input = input.split()
-        case input[0]
+        case input
         when "forward", "f"
             self.forward(page, max_pages)
         when "back", "b"
@@ -27,7 +26,7 @@ class CLI::Scraper_Tools
         when "home"
             CLI.restart
         when /install [0-9]+/
-            puts "Yep got it! install #{input[1]}"
+            puts "Yep got it! install #{input}"
         else
             puts "Unrecognised command, try again"
             puts "install #{input[1]}"
