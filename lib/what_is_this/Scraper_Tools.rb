@@ -30,7 +30,7 @@ class CLI::Scraper_Tools
             puts "Yep got it! install #{input[1]}"
         else
             puts "Unrecognised command, try again"
-            puts input
+            puts "install #{input[1]}"
             self.navigate
         end
 
