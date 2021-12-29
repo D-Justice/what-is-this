@@ -26,12 +26,12 @@ class CLI::Scraper_Tools
             self.back(page)
         when "home"
             CLI.restart
-        when "install #{input[1]}"
+        when "install #{input[1].to_s}"
             puts "Yep got it! install #{input[1]}"
         else
             puts "Unrecognised command, try again"
             puts "install #{input[1]}"
-            self.navigate
+            self.navigate(page, max_pages)
         end
 
     end
