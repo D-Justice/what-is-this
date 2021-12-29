@@ -26,7 +26,7 @@ class CLI::Scraper_Tools
             self.back(page)
         when "home"
             CLI.restart
-        when "install #{input[1].to_s}"
+        when /install [0-9]+/
             puts "Yep got it! install #{input[1]}"
         else
             puts "Unrecognised command, try again"
