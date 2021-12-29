@@ -1,5 +1,5 @@
 class CLI::Approx_Scraper
-    attr_accessor :name, :markup, :downloads
+    attr_accessor :name, :markup, :downloads, :id
     @@page = 1
     @@current_query = ""
 
@@ -11,10 +11,11 @@ class CLI::Approx_Scraper
         @doc = Nokogiri::HTML(open(url))
         self.new_from_query
     end
-    def initialize(name=nil, markup=nil, downloads=nil)
+    def initialize(name=nil, markup=nil, downloads=nil, id=nil)
         @name = name
         @markup = markup
         @downloads = downloads
+        @id = id
         @@all << self
     end
     def self.new_from_query
@@ -22,7 +23,9 @@ class CLI::Approx_Scraper
             self.new(
                 approx_names(@doc)[index],
                 approx_markups(@doc)[index],
-                approx_downloads(@doc)[index]
+                approx_downloads(@doc)[index],
+                index
+
             )
         end
         display_approx
@@ -46,14 +49,17 @@ class CLI::Approx_Scraper
     def self.approx_downloads(doc)
         doc.css('.gems__gem__downloads__count').text.gsub(/[[:space:]]/, ' ').gsub(/Downloads/, '').split()
     end
+    def self.clear_all_instances
+        @@all = []
+    end
     def self.display_approx
         puts "======================================================="
         begin
             if (@@all.length >= 1)
-            @@all.each_with_index do |each, index|
+            @@all.each do |each|
                 puts "---------------------------------"
                 puts ''
-                puts "##{index}"
+                puts "##{each.id}"
                 puts ''
                 puts "About: #{each.name}"
                 puts ''
