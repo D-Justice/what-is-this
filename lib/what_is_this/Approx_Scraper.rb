@@ -50,8 +50,10 @@ class CLI::Approx_Scraper
         puts "======================================================="
         begin
             if (@@all.length >= 1)
-            @@all.each do |each|
+            @@all.each_with_index do |each, index|
                 puts "---------------------------------"
+                puts ''
+                puts "##{index}"
                 puts ''
                 puts "About: #{each.name}"
                 puts ''

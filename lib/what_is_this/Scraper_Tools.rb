@@ -15,15 +15,19 @@ class CLI::Scraper_Tools
     end
     
     def self.navigate(page, max_pages)
-        puts @@spacing + @@message_spacing + "To navigate type 'forward'(f) or 'back'(b), or 'home' to go back"
+        puts @@spacing + @@message_spacing + "To navigate type 'forward'(f) or 'back'(b), or 'home' to go back \n
+        To install a gem type install then its number (install 12)"
         input = gets.chomp.to_str.downcase
-        case input
+        input = input.split()
+        case input[0]
         when "forward", "f"
             self.forward(page, max_pages)
         when "back", "b"
             self.back(page)
         when "home"
             CLI.restart
+        when "install #{input[1]}"
+            puts "Yep got it! install #{input[1]}"
         else
             puts "Unrecognised command, try again"
             self.navigate
