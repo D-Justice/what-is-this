@@ -7,10 +7,11 @@ class CLI::AdvancedSearch
 
     @@all = []
 
-    def initialize(name = nil, markup = nil, downloads = nil )
+    def initialize(name = nil, markup = nil, downloads = nil, id = nil )
         @name = name
         @markup = markup
         @downloads = downloads
+        @id = id
         @@all << self
     end
     def self.new_from_query
@@ -18,7 +19,8 @@ class CLI::AdvancedSearch
             self.new(
                 CLI::Approx_Scraper.approx_names(@doc)[index],
                 CLI::Approx_Scraper.approx_markups(@doc)[index],
-                CLI::Approx_Scraper.approx_downloads(@doc)[index]
+                CLI::Approx_Scraper.approx_downloads(@doc)[index],
+                index
             )
         end
         display_data
@@ -85,6 +87,8 @@ class CLI::AdvancedSearch
                 @@all.each do |each|
                     puts "---------------------------------"
                     puts ''
+                    puts "##{each.id}"
+                    puts ''
                     puts "About: #{each.name}"
                     puts ''
                     puts "Markup: #{each.markup}"
@@ -97,7 +101,7 @@ class CLI::AdvancedSearch
             if (CLI::Scraper_Tools.check_pagination(@doc) != "")
                 max_pages = (search_results_found / 30).ceil
                 puts "Displaying page #{@@page} out of #{max_pages}"
-                @@page = CLI::Scraper_Tools.navigate(@@page, max_pages)
+                @@page = CLI::Scraper_Tools.navigate(@@page, max_pages, @@all)
 
                 self.advanced_search_scrape(@@current_query, @@page)
 
