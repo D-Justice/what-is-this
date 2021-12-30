@@ -1,5 +1,5 @@
 class CLI::AdvancedSearch
-    attr_accessor :name, :markup, :downloads
+    attr_accessor :name, :markup, :downloads, :id
     @@spacing = "\n\n\n"
     @@message_spacing = "         "
     @@current_query = ""
@@ -113,7 +113,7 @@ class CLI::AdvancedSearch
             end
         rescue => error
             puts error.message
-            self.retry
+            CLI::Scraper_Tools.retry
         end
         
     end
