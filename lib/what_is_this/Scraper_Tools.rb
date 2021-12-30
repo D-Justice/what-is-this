@@ -25,7 +25,7 @@ class CLI::Scraper_Tools
             when "back", "b"
                 page = self.back(page)
             when "home"
-                Approx_Scraper.clear_all_instances
+                CLI::Approx_Scraper.clear_all_instances
                 CLI.restart
             when /install [0-9]+/
                 install_num = input.split()
