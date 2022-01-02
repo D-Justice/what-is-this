@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors = ["D-Justice"]
   spec.email = ["justice.damian96@gmail.com"]
 
-  spec.summary = "CLI that allows the user all the functionality of RubyGems.org within the terminal."
-  spec.description = "CLI that allows the user all the functionality of RubyGems.org within the terminal."
+  spec.summary = "CLI that allows the user all the functionality of RubyGems.org within the terminal. To begin, simply type 'what_is_this in your project folder after installing the gem."
+  spec.description = "CLI that allows the user all the functionality of RubyGems.org within the terminal. To begin, simply type 'what_is_this in your project folder after installing the gem."
   spec.homepage = "https://github.com/D-Justice/what-is-this"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
