@@ -19,15 +19,17 @@ class CLI::Approx_Scraper
         @@all << self
     end
     def self.new_from_query
+        
         approx_names(@doc).each_with_index do |each, index|
             self.new(
                 approx_names(@doc)[index],
                 approx_markups(@doc)[index],
                 approx_downloads(@doc)[index],
-                index
+                index + 1
 
             )
         end
+        
         display_approx
     end
     def self.approx_names(doc)
@@ -45,7 +47,20 @@ class CLI::Approx_Scraper
         
         
     end
-    
+    def self.post_search_query
+        search_results_found = CLI::Scraper_Tools.page(@doc)
+        max_pages = (search_results_found / 30).ceil
+
+        puts "Displaying page #{@@page} out of #{max_pages}"
+        temp_page = @@page
+        @@page = CLI::Scraper_Tools.navigate(@@page, max_pages, @@all)
+        
+        if (temp_page != @@page)
+            self.clear_all_instances
+        end
+        self.get_approximate_data(@@current_query, @@page)
+
+    end
     def self.approx_downloads(doc)
         doc.css('.gems__gem__downloads__count').text.gsub(/[[:space:]]/, ' ').gsub(/Downloads/, '').split()
     end
@@ -69,19 +84,14 @@ class CLI::Approx_Scraper
                 puts ''
                 puts "---------------------------------"
             end
-            search_results_found = CLI::Scraper_Tools.page(@doc)
             if (CLI::Scraper_Tools.check_pagination(@doc) != "")
-                max_pages = (search_results_found / 30).ceil
-                puts "Displaying page #{@@page} out of #{max_pages}"
-                @@page = CLI::Scraper_Tools.navigate(@@page, max_pages, @@all)
-
-                self.get_approximate_data(@@current_query, @@page)
+                self.post_search_query
 
             end
             CLI.restart
         else
             puts "0 search results found"
-            CLI.restart
+            CLI::Advanced_Search.restart
         end
     rescue => error
         puts error.message

@@ -1,5 +1,7 @@
 class CLI::Install
-    
+    @@spacing = "\n\n\n"
+    @@message_spacing = "         "
+
     def self.install
         puts @@spacing + @@message_spacing + "Enter the gem that you would like to install and save as a dependency"
         input = CGI.escape(gets.chomp)

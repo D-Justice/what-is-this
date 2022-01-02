@@ -20,7 +20,7 @@ class CLI::AdvancedSearch
                 CLI::Approx_Scraper.approx_names(@doc)[index],
                 CLI::Approx_Scraper.approx_markups(@doc)[index],
                 CLI::Approx_Scraper.approx_downloads(@doc)[index],
-                index
+                index + 1
             )
         end
         display_data
@@ -59,6 +59,7 @@ class CLI::AdvancedSearch
    
     def self.advanced_search_scrape(query, page = 1)
         url = "https://rubygems.org/search?page=#{page}&query=#{query}"
+        puts url
         @doc = Nokogiri::HTML(open(url)) 
         self.new_from_query
 
@@ -79,6 +80,23 @@ class CLI::AdvancedSearch
             self.advanced_search_properties
         end
     end
+    def self.post_search_query
+        search_results_found = CLI::Scraper_Tools.page(@doc)
+        max_pages = (search_results_found / 30).ceil
+
+        puts "Displaying page #{@@page} out of #{max_pages}"
+        temp_page = @@page
+        @@page = CLI::Scraper_Tools.navigate(@@page, max_pages, @@all)
+        
+        if (temp_page != @@page)
+            self.clear_all_instances
+        end
+        self.advanced_search_scrape(@@current_query, @@page)
+
+    end
+    def self.clear_all_instances
+        @@all = []
+    end
     def self.display_data
         puts "======================================================="
         begin
@@ -97,14 +115,10 @@ class CLI::AdvancedSearch
                     puts ''
                     puts "---------------------------------"
                 end
-                search_results_found = CLI::Scraper_Tools.page(@doc)
+                
             if (CLI::Scraper_Tools.check_pagination(@doc) != "")
-                max_pages = (search_results_found / 30).ceil
-                puts "Displaying page #{@@page} out of #{max_pages}"
-                @@page = CLI::Scraper_Tools.navigate(@@page, max_pages, @@all)
-
-                self.advanced_search_scrape(@@current_query, @@page)
-
+                self.post_search_query
+                
             end
                 CLI.restart
             else
@@ -114,6 +128,7 @@ class CLI::AdvancedSearch
         rescue => error
             puts error.message
             CLI::Scraper_Tools.retry
+            self.restart
         end
         
     end
