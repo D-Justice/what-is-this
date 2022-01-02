@@ -3,9 +3,14 @@ class CLI::Install
     @@message_spacing = "         "
 
     def self.install
-        puts @@spacing + @@message_spacing + "Enter the gem that you would like to install and save as a dependency"
-        input = CGI.escape(gets.chomp)
-        self.run_sys_command(input)
+        puts @@spacing + @@message_spacing + "Enter the gem that you would like to install and save as a dependency or back to return"
+        input = gets.chomp
+        case input
+        when "back"
+
+        else
+            self.run_sys_command(CGI.escape(input))
+        end
     end
     def self.run_sys_command(input)
         system("bundle add #{input}") 

@@ -65,14 +65,8 @@ class CLI
         restart
     end
     def self.install
-        puts @@spacing + @@message_spacing + "Enter the gem that you would like to install and save as a dependency or back to return"
-        input = CGI.escape(gets.chomp)
-        case input
-        when 'back'
-            restart
-        else
-            Install.install(input)
-        end
+        
+        Install.install
         restart
     end
     def self.quit

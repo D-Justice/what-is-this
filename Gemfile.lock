@@ -6,12 +6,14 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
+    json (2.6.1)
     rake (13.0.6)
 
 PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  json (~> 2.6)
   rake (~> 13.0)
   what_is_this!
 
